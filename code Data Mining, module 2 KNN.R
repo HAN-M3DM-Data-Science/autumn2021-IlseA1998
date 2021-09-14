@@ -2,7 +2,8 @@ install.packages("readr")
 install.packages("class")
 install.packages("magrittr")
 install.packages("caret")
-install.packages(e1071)
+install.packages("e1071")
+
 library(readr)
 library(ggplot2)
 library(class)
@@ -48,8 +49,8 @@ cleanDF_n <- sapply(2:nCols,
 
 summary(cleanDF_n[c("radius_mean", "area_mean", "smoothness_mean")])
 
-trainDF_feat <- cleanDF_n[1:469,  1]
-testDF_feat <- cleanDF_n[470:569,  1]
+trainDF_feat <- cleanDF_n[1:469,  ]
+testDF_feat <- cleanDF_n[470:569,  ]
 
 trainDF_labels <- cleanDF[1:469,  1]
 testDF_labels <- cleanDF[470:569,  1]
@@ -57,4 +58,4 @@ testDF_labels <- cleanDF[470:569,  1]
 cleanDF_test_pred <- knn(train = as.matrix(trainDF_feat), test = as.matrix(testDF_feat), cl = as.matrix(trainDF_labels), k = 21)
 head(cleanDF_test_pred)
 
-confusionMatrix(cleanDF_test_pred, testDF_labels[[1]], Positive = NULL, dnn = c("Prediction", "True"))
+confusionMatrix(cleanDF_test_pred, testDF_labels[[1]], positive = NULL, dnn = c("Prediction", "True"))
