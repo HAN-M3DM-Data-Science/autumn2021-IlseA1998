@@ -1,0 +1,30 @@
+---
+title: "Assigment - Data Driven Decision Making - Walmart"
+author: Ilse Akkerman
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_notebook:
+    toc: yes
+    toc_depth: 2
+---
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=42xErufN1e8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+## Why was data driven decision making (3DM) useful in this business case?
+
+Walmart used the data to monitor conditions in their stores, their merchandise and the patterns and habits of their customers. This data makes sure that not only they can serve the customers better, but also that the stores layouts are put together in a better way. This causes for more upselling and cross-selling and the effect of promotions can be monitored. 
+Next to that there Walmart introduced digital assistence that allows customers to find the items on their list, interest them in new products and select promotions to save money.
+There is also real time data gathered by the help of video cameras that can help Walmart to improve the customer experience realtime. 
+
+## How did the organization apply 3DM?
+
+Walmart used the data gathered from beacons, video cameras, digital signage and smart shelves to find out more about the customer activity. This helped Walmart to track the effectiveness of their store layout and improve whenever necessary.The effectiveness of the layout was also determined on the customer preferences and paths to purchase. 
+With the help of the digital assistent Walmart could identify the customers desire, by which they could have special promotions or suggestions to upsell or cross-sell more items. Next to that is the tracking of the effectiveness of promotions become much easier with the help of the digital assistent. 
+With the help of the realtime data from the video camera's, Walmarts store managers can schedule staff more efficiently and elimenate long queues. This helps Walmart delivering the customer experience right to the end of the shopping trip. 
+
+## What can the organization do with 3DM that they couldn’t do before?
+
+With the help of Data Driven Decision Making Walmart can anticipate on the customers needs and desires and thus make more money and have more loyal customers. Next to that they can keep up with the constant change of pace in the store and make sure everyone gets the same good experience. The store layouts can be improved more rapidly then before, because there is no need to wait a couple of months to see that a product is not in a good spot to upsell or cross-sell. The effect of a promotion can also be monitored during the promotion itself and it is way simpeler to gather all the data about the upcoming needs and desires of the customers with the help of the digital assistent. 
