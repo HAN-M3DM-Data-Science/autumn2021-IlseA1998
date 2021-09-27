@@ -1,6 +1,6 @@
 ---
-title: "Assigment - Data Problems vs Data Solutions"
-author: name author here
+title: "Assigment - Data Problems vs Data Solutions - Starbucks"
+author: Ilse Akkerman
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_notebook:
@@ -10,7 +10,7 @@ output:
 
 Search Youtube for a suitable business case example on data driven decision making and copy the embed code below.
 
-<---- Embed code here ---->
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=8SPPMb41Zn8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## What was the business problem?
