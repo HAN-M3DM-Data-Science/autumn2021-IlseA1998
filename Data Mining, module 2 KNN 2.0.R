@@ -1,6 +1,6 @@
 # ---
-  title: "Data Mining, KNN"
-author: Ilse Akkerman - Author, Alwin Schra - Reviewer
+title: "Data Mining, KNN"
+author: "Ilse Akkerman - Author, Alwin Schra - Reviewer"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_notebook:
@@ -15,6 +15,7 @@ install.packages("caret")
 install.packages("e1071")
 
 library(readr)
+library(tidyverse)
 library(class)
 library(magrittr)
 library(caret)
@@ -35,7 +36,7 @@ library(e1071)
 # the data exists of a patient number, a colum if they are blood donor or not, age, sex and different blood values
   
 url <- "https://raw.githubusercontent.com/HAN-M3DM-Data-Mining/assignments/master/datasets/KNN-hcvdat0.csv"
-rawDF <- read_csv(url)
+rawDF <- read_csv(url, )
 View(rawDF)
 str(rawDF)
 
@@ -50,7 +51,7 @@ View(cleanDF)
 cleanDF2 <- drop_na(cleanDF)
 head(cleanDF2)
 View(cleanDF2)
-cleanDF3 <- na.omit(cleanDF2)
+cleanDF3 <- na.omit(cleanDF)
 head(cleanDF3)
 View(cleanDF3)
 
@@ -80,20 +81,21 @@ cat("Normalized testSet1:", normalize(testSet1), "\n")
 cat("Normalized testSet2:", normalize(testSet2))
 
 nCols <- dim(cleanDF3)[2]
-NorDF <- cleanDF3[4:13]
+nRows <- dim(cleanDF3)[1]
+NorDF <- cleanDF3[4:nCols]
 View(NorDF)
 cleanDF3_no <- sapply(1:10,
-                     function(x) {
-                       normalize(NorDF[,x])
-                     }) %>% as.data.frame()
+                      function(x) {
+                        normalize(NorDF[,x])
+                      }) %>% as.data.frame()
 summary(cleanDF3_no[c("CREA", "GGT", "PROT")])
 
-
 count(cleanDF3)
-trainDF_feat <- cleanDF3[1:294, ]
-testDF_feat <- cleanDF3[295:588, ]
-trainDF_labels <- cleanDF3[1:294, 1]
-testDF_labels <- cleanDF3[295:588, 1]
+sampleVec <- sample(c(1:nRows), 489)
+trainDF_feat <- cleanDF3_no[sampleVec, ]
+testDF_feat <- cleanDF3_no[-sampleVec, ]
+trainDF_labels <- cleanDF3[sampleVec, 1]
+testDF_labels <- cleanDF3[-sampleVec, 1]
 cl <- trainDF_labels[,1, drop=TRUE]
 dim(trainDF_feat)
 dim(testDF_feat)
@@ -106,21 +108,13 @@ cleanDF_test_predi <- knn(train = as.matrix(trainDF_feat), test = as.matrix(test
 head(cleanDF_test_predi)
 confusionMatrix(cleanDF_test_predi, testDF_labels[[1]], positive = NULL, dnn = c("Prediction", "True"))
 
-
 ## Evaluation and Deployment
-# there is an error in the code in line 101, i cant figure out where the mistake is made and internet isnt of much help. the error i am getting is:
-# Error in knn(train = as.matrix(trainDF_feat), test = as.matrix(testDF_feat),  : 
-#NA/NaN/Inf in foreign function call (arg 6)
-#In addition: Warning messages:
-#  1: In knn(train = as.matrix(trainDF_feat), test = as.matrix(testDF_feat),  :
-#             NAs introduced by coercion
-#            2: In knn(train = as.matrix(trainDF_feat), test = as.matrix(testDF_feat),  :
-#                        NAs introduced by coercion
-# Maybe Alwin can figure out the error and find a way to fix it. 
 
-# Because of the error i can not see the accuracy of the model. For the sake of the receiver of the blood the test should be really accurate so that there will be no transmitting diseases given to them.
-# Therefore an accuracy of 99% or higher will be acceptable
+# the model has an accuracy of 88%, which is way too low in my opinion for something that can potentially kill the receiver of the blood
 # Next to that you rather have a false positive than a false negative. With a false positive there is no risk for the receiving party of getting an invective disease that may kill them without proper treatment.
+# In this model there are no false positives but quite a few false negatives, this could be the case because the values of the people with (suspected) Hepatitis is so small that the model couldn't train properly on it.
+# If you look at the values there are really small differences between the people with (suspected) hepatitis and the healthy ones, so that makes it extra hard to train on it. 
+# in the training group there were only 48 cases in which there was hepatitis so that makes it difficult for the model to be able to really determine the small differences. 
 
                       
 
