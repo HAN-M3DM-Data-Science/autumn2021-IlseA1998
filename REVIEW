@@ -1,0 +1,188 @@
+---
+title: "Assigment - Naive Bayes DIY"
+author:
+  - name author here - Alwin Schra
+  - name reviewer here - Ilse Akkerman
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+   html_notebook:
+    toc: true
+    toc_depth: 2
+---
+
+```{r}
+#install.packages("tidyverse")
+#install.packages("tm")
+#install.packages("caret")
+#install.packages("wordcloud")
+#install.packages("e1071")
+#install.packages("readr")
+#install.packages("utils")
+#install.packages("RColorBrewer")
+#install.packages("magrittr")
+#install.packages("base")
+#install.packages("textclean")
+library(tidyverse)
+library(tm)
+library(caret)
+library(wordcloud)
+library(e1071)
+library(readr)
+library(utils)
+library(RColorBrewer)
+library(magrittr)
+library(base)
+library(textclean)
+
+```
+
+
+```{r}
+
+url <- "https://raw.githubusercontent.com/HAN-M3DM-Data-Mining/assignments/master/datasets/NB-fakenews.csv"
+rawDF <- read_csv(url)
+
+head(rawDF)
+
+```
+
+Because the file is so large (20800 entries with 5 columns), I'll remove a few columns from it because otherwise it takes too long to load, especially later on in this assignment. 
+
+```{r}
+rawDF <- rawDF[c(-1,-3)] %>% na.omit
+head(rawDF)
+```
+
+Convert to factor and create two different datasets divided on the basis of the two labels. 
+
+```{r}
+rawDF$label <- rawDF$label %>% factor %>% relevel("1")
+class(rawDF$label)
+
+rawDF$label <- rawDF$label %>% factor %>% relevel("0")
+class(rawDF$label) 
+
+Fake <- rawDF %>% filter(label == "1")
+NFake <- rawDF %>% filter(label == "0")
+```
+
+Below is a wordcloud line to check common words named in the two resulting datasets. 
+
+```{r}
+wordcloud(Fake$text, max.words = 20, scale = c(4, 0.8), colors= c("indianred1","indianred2","indianred3","indianred"))
+wordcloud(NFake$text, max.words = 20, scale = c(4, 0.8), colors= c("lightsteelblue1","lightsteelblue2","lightsteelblue3","lightsteelblue"))
+```
+
+Now a corpus is created, in which some parts of the file are taken out or changed. 
+
+```{r}
+rawCorpus <- Corpus(VectorSource(rawDF$title))
+inspect(rawCorpus[1:3])
+
+cleanCorpus <- rawCorpus %>% tm_map(tolower) %>% tm_map(removeNumbers)
+cleanCorpus <- cleanCorpus %>% tm_map(tolower) %>% tm_map(removeWords, stopwords()) %>% tm_map(removePunctuation)
+cleanCorpus <- cleanCorpus %>% tm_map(stripWhitespace)
+```
+
+Data check
+
+```{r}
+tibble(Raw = rawCorpus$content[1:3], Clean = cleanCorpus$content[1:3])
+```
+
+Transforming the data to a matrix. Every word has a column. 
+
+```{r}
+cleanDTM <- cleanCorpus %>% DocumentTermMatrix
+inspect(cleanDTM)
+```
+
+```{r}
+Create split indices
+set.seed(1234)
+trainIndex <- createDataPartition(rawDF$label, p = 0.75, 
+                                  list = FALSE,
+                                  times = 1)
+
+head(trainIndex)
+```
+
+Creating train and test sets
+
+```{r}
+trainDF <- rawDF[trainIndex, ]
+testDF <- rawDF[-trainIndex, ]
+
+trainCorpus <- cleanCorpus[trainIndex]
+testCorpus <- cleanCorpus[-trainIndex]
+
+trainDTM <- cleanDTM[trainIndex, ]
+testDTM <- cleanDTM[-trainIndex, ]
+```
+
+To prevent the dataset from becoming too large, I have put a 100 in the next line. In this case, this means that only words that occur 100 times or more are included. 
+
+```{r}
+freqWords <- trainDTM %>% findFreqTerms(100)
+trainDTM <-  DocumentTermMatrix(trainCorpus, list(dictionary = freqWords))
+testDTM <-  DocumentTermMatrix(testCorpus, list(dictionary = freqWords))  
+```
+
+```{r}
+convert_counts <- function(x) {
+  x <- ifelse(x > 0, 1, 0) %>% factor(levels = c(0,1), labels = c("No", "Yes"))
+}
+
+nColsDTM <- dim(trainDTM)[2]
+trainDTM <- apply(trainDTM, MARGIN = 2, convert_counts)
+testDTM <- apply(testDTM, MARGIN = 2, convert_counts)
+
+head(trainDTM[,1:10]) 
+```
+
+Train the model
+
+```{r}
+nbayesModel <-  naiveBayes(trainDTM, trainDF$label, laplace = 1)
+```
+
+The final Confusion Matrix
+
+```{r}
+predVec <- predict(nbayesModel, testDTM)
+confusionMatrix(predVec, testDF$label, positive = "1", dnn = c("Prediction", "True"))
+``` 
+
+Currently it has an accuracy of 89,8%, which is not that bad. But it's not completely reliable.  
+
+
+
+#reviewer adds suggestions for improving the model
+
+We fixed some problems together so i know how the code is build. Therefore i don's see any mistakes right now, but what can be done is editing the "freqWords <- trainDTM %>% findFreqTerms(100)" to "freqWords <- trainDTM %>% findFreqTerms(10)". This makes the confusionMatrix more accurate (92,19% compared to the 89,8%) and it is still doable for the time needed. The change of that gives me the following results:
+Confusion Matrix and Statistics
+
+          True
+Prediction    0    1
+         0 2282   92
+         1  314 2511
+                                          
+               Accuracy : 0.9219          
+                 95% CI : (0.9143, 0.9291)
+    No Information Rate : 0.5007          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.8438          
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.9647          
+            Specificity : 0.8790          
+         Pos Pred Value : 0.8888          
+         Neg Pred Value : 0.9612          
+             Prevalence : 0.5007          
+         Detection Rate : 0.4830          
+   Detection Prevalence : 0.5434          
+      Balanced Accuracy : 0.9219          
+                                          
+       'Positive' Class : 1          
