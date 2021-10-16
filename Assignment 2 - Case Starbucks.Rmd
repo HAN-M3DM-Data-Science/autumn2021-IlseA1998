@@ -1,0 +1,26 @@
+---
+title: "Assigment - Data Problems vs Data Solutions - Starbucks"
+author: Ilse Akkerman
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_notebook:
+    toc: yes
+    toc_depth: 2
+---
+
+Search Youtube for a suitable business case example on data driven decision making and copy the embed code below.
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=8SPPMb41Zn8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+## What was the business problem, how was this translated into a data mining problem and what is the achieved business value?
+
+There were three big business problems that Starbucks had with their data that were translated to data mining problems. First of all they were dealing with data at a petabyte schale and fragmentation across their systems. This ment the ability to process data near realtime from a huge variety of sources. 
+The huge variety of sources brought up the second problem, the inability to implement updates and merges on a fast changing data in an optimal fashion. The engineering experiences with services were also non-optimal for the scale Starbucks is working at. 
+The third business problem is the no single source of truth on the consumption side. There was a lack of unified user experience and an impedance mismatch between data and model development and operations. This was blocking experimentations and reproducibility. 
+
+These business problems were tackled by implementing their zero friction, analytics framework called BrewKit. This was build on a foundation of Azure, Databricks and Delta. This framework would be a unified analystics platform to reduce the impedance mismatch between access to data, ability to perform data science and operationalization. This made it so that even the smallest of teams at Starbucks had the ability to do at scale data science and data engineering. Other systems are still in use but use data from the one place the metadata is stored at. 
+To tackle the problem with data ingestion Starbucks has been using custom built Spark Kubernetes that can help with processing millions of transactions per second. This also helped them to build their historical data and live aggregations together to make sure Starbucks is giving their store partners realtime insights on data, based on history and current time. Constructed pipelines that hold transaction data that will be cleaned, audited and processed to be send back to the stores will do that within minutes to ensure the store partners have the latest data to work with. 
+The usage of BrewKit made it so that Starbucks had their own version of their metadata to sync across the more than 50 enviornments in the workplaces at schale. This means all the users are looking at one version of published data with a single source of truth. 
+
+These solutions helped Starbucks to have 50-100 times the performance gains as well as storage optimization across all stores. 
