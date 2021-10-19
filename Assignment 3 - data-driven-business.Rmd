@@ -42,3 +42,5 @@ https://www.ibm.com/blogs/think/se-sv/2016/04/15/4-characteristics-of-data-drive
 https://unscrambl.com/blog/the-data-driven-organization-what-it-means-to-be-one-and-why-it-matters/
 https://techcrunch.com/2017/06/23/five-building-blocks-of-a-data-driven-culture/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAM0oBYJL7w3cQYNZiBhs0u4sPvtbfAK-llsCl29kV7yJyJjDwzorTujiDUQMoOqgz9ebx1Y6E2LPvJqdw5fDhgabzRf_vFhZf-Bo6SNuKUCuW4E_ggee_7sMAeXPuoOO_gMiQS0damVgIkJSC-iIKPkqYquVkfPACvSmZ1nxUG1-
 https://computd.nl/demystification/4-levels-of-data-maturity/
+https://www.safegraph.com/blog/the-four-stages-of-data-maturity
+https://www.wavgroup.com/2020/01/09/characteristics-of-a-data-driven-organization/
