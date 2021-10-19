@@ -1,0 +1,44 @@
+---
+title: "Assigment - Data Driven Business"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_notebook:
+    toc: yes
+    toc_depth: 2
+---
+
+Search Youtube for suitable business case examples on data driven business. Copy the embed code below.
+
+<iframe width="600" height="400" src="https://www.youtube.com/watch?v=on_r-zYEeOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+## What features define a data driven business?
+
+there are four things that define a data driven business
+1. data is centralized and organized 
+2. data governance policies are in place
+3. data is accessible
+4. analystics is integrated in tools
+Write your analysis here. Use illustrations from the case study and the information from the course literature as a starting point for your argumentation. Find other reliable sources that support your analysis. Apply proper citations. 
+
+## What are the important features of a data culture?
+
+important features of a data culture are a clear data strategy, invested management, accessibility to the data, policies to ensure the data is secure, change agents to help with the implementing of data culture and talent programs. these all have to fit the business strategy, but without these there will not be a good data culture. 
+
+## What are the transformation steps towards a mature data driven business?
+Following the Gartner chart in the image below, the steps to a mature data driven business are shown. 
+Each of the levels has a bit better understanding of data science and how the data is used. 
+
+![image](https://user-images.githubusercontent.com/89775227/137974876-d38a2869-6b08-47d9-b559-d1f07a96d3a2.png)
+
+Next to that there is another model called the Gartner's analytics ascendancy model which shows what kind of difficulty and value stages of analytics will bring. The model is shown below. With desciptive analytics there will only be looked at historical data and this will show what happened. 
+With diagnostic analytics there is also looked at why things happened in the past. Predictive analytics will try to find out what will happen in the future and is for example forecasting.
+Prescriptive analysis is the hardest to achieve but also the most valuable. This will explain to the company using the analytics how they can make things happen. 
+
+![image](https://user-images.githubusercontent.com/89775227/137975288-76a89748-cbf0-49cf-9f38-def28754e45e.png)
+
+
+#Sources
+https://www.ibm.com/blogs/think/se-sv/2016/04/15/4-characteristics-of-data-driven-organizations-and-how-to-get-started/
+https://unscrambl.com/blog/the-data-driven-organization-what-it-means-to-be-one-and-why-it-matters/
+https://techcrunch.com/2017/06/23/five-building-blocks-of-a-data-driven-culture/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAM0oBYJL7w3cQYNZiBhs0u4sPvtbfAK-llsCl29kV7yJyJjDwzorTujiDUQMoOqgz9ebx1Y6E2LPvJqdw5fDhgabzRf_vFhZf-Bo6SNuKUCuW4E_ggee_7sMAeXPuoOO_gMiQS0damVgIkJSC-iIKPkqYquVkfPACvSmZ1nxUG1-
+https://computd.nl/demystification/4-levels-of-data-maturity/
